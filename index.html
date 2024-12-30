@@ -7,11 +7,15 @@
   </head>
   <body>
     <h1>Jelszó generátor</h1>
-    <label for="">Hány karakteres legyen a jelszó?</label>
-    <input type="number" name="" id="karakter-szam" />
+    <label for="">Hány szám legyen a jelszóban?</label>
+    <input type="number" min="1" value="1" name="" id="karakter-szam" /><br />
+    <label for="">Hány betű karakter legyen a jelszóban?</label>
+    <input type="number" min="1" value="1" name="" id="betuk-szama" /><br />
+    <label for="">Hány speciális karakter legyen a jelszóban?</label>
+    <input type="number" min="1" value="1" name="" id="speckarakterek-szama" />
     <button id="jelszo-generalo">Jelszó generálása</button><br />
     <label for="">Az elkészült jelszó:</label>
     <input readonly id="jelszo" type="text" />
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
