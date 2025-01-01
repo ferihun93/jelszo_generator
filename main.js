@@ -1,72 +1,121 @@
 import { betuk } from "./karakterek.js";
 import { specialisKarakterek } from "./karakterek.js";
 
-const kertkarakterSzam = document.getElementById("karakter-szam");
+const kertSzamKarakterekSzama = document.getElementById("karakter-szam");
 const kiirtJelszo = document.getElementById("jelszo");
-const betukSzama = document.getElementById("betuk-szama");
-const specialKarakterekSzama = document.getElementById("speckarakterek-szama");
+const kertBetuKarakterekSzama = document.getElementById("betuk-szama");
+const kertSpecialisKarakterekSzama = document.getElementById(
+  "speckarakterek-szama"
+);
+const kertRandomJelszoKarakterekSzama = document.querySelector(
+  "#random-jelszo-karakterek"
+);
 
-let kezdoKarakterekSzama = 0;
-let kezdoBetukSzama = 0;
-let kezdoSpeckarakterekSzama = 0;
-let jelszoKarakterek = [];
+// let jelszoKarakterekTomb = [];
 
-const randomSzamGeneralo = function () {
-  while (kezdoKarakterekSzama < kertkarakterSzam.value) {
-    const randomSzam = Math.floor(Math.random() * 9 + 1);
-    jelszoKarakterek.push(randomSzam);
-    kezdoKarakterekSzama++;
-  }
-  tombFeltoltes();
+const valtozok = {
+  jelszoKarakterekTomb: [],
 };
 
-const randomBetukGeneralo = function () {
-  while (kezdoBetukSzama < betukSzama.value) {
+const randomSzamGeneralo = function () {
+  let kezdoErtek = 0;
+  while (kezdoErtek < kertSzamKarakterekSzama.value) {
+    const randomSzam = Math.floor(Math.random() * 9 + 1);
+    valtozok.jelszoKarakterekTomb.push(randomSzam);
+    kezdoErtek++;
+  }
+};
+
+const randomBetuGeneralo = function () {
+  let kezdoErtek = 0;
+  while (kezdoErtek < kertBetuKarakterekSzama.value) {
     const randomIndex = Math.floor(Math.random() * betuk.length);
     const randomBetuk = betuk[randomIndex];
-    jelszoKarakterek.push(randomBetuk);
-    kezdoBetukSzama++;
+    valtozok.jelszoKarakterekTomb.push(randomBetuk);
+    kezdoErtek++;
   }
 };
 
 const randomSpecialisKarakterGeneralo = function () {
-  while (kezdoSpeckarakterekSzama < specialKarakterekSzama.value) {
+  let kezdoErtek = 0;
+  while (kezdoErtek < kertSpecialisKarakterekSzama.value) {
     const randomIndex = Math.floor(Math.random() * specialisKarakterek.length);
     const randomSpecBetuk = specialisKarakterek[randomIndex];
-    jelszoKarakterek.push(randomSpecBetuk);
-    kezdoSpeckarakterekSzama++;
+    valtozok.jelszoKarakterekTomb.push(randomSpecBetuk);
+    kezdoErtek++;
   }
 };
 
 const jelszoRandomizalo = function () {
-  for (let i = jelszoKarakterek.length - 1; i > 0; i--) {
+  for (let i = valtozok.jelszoKarakterekTomb.length - 1; i > 0; i--) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
-    [jelszoKarakterek[i], jelszoKarakterek[randomIndex]] = [
-      jelszoKarakterek[randomIndex],
-      jelszoKarakterek[i],
+    [
+      valtozok.jelszoKarakterekTomb[i],
+      valtozok.jelszoKarakterekTomb[randomIndex],
+    ] = [
+      valtozok.jelszoKarakterekTomb[randomIndex],
+      valtozok.jelszoKarakterekTomb[i],
     ];
   }
 };
 
-const tombFeltoltes = function () {
-  randomBetukGeneralo();
-  randomSpecialisKarakterGeneralo();
-  jelszoRandomizalo();
-  let ujJelszo = jelszoKarakterek.join("");
-  kiirtJelszo.value = ujJelszo;
+const reset = function () {
+  valtozok.jelszoKarakterekTomb = [];
+  kiirtJelszo.value = "";
 };
 
-const reset = function () {
-  kezdoKarakterekSzama = 0;
-  kezdoBetukSzama = 0;
-  kezdoSpeckarakterekSzama = 0;
-  jelszoKarakterek = [];
-  kiirtJelszo.value = "";
+const jelszoKeszito = function () {
+  randomSzamGeneralo();
+  randomBetuGeneralo();
+  randomSpecialisKarakterGeneralo();
+  jelszoRandomizalo();
+  const formataltJelszo = valtozok.jelszoKarakterekTomb.join("");
+  kiirtJelszo.value = formataltJelszo;
 };
 
 document
   .getElementById("jelszo-generalo")
   .addEventListener("click", function () {
     reset();
-    randomSzamGeneralo();
+    jelszoKeszito();
+  });
+
+//Full random jelszó lehetőség
+
+const randomJelszoGeneralo = function () {
+  let kezdoErtekSzamok = 0;
+  let kezdoErtekBetuk = 0;
+  let kezdoErtekSpec = 0;
+
+  const jelszo1 = Math.floor(kertRandomJelszoKarakterekSzama.value / 2) - 2;
+  const jelszo2 = (kertRandomJelszoKarakterekSzama.value % 2) + 4;
+
+  while (kezdoErtekSzamok < jelszo1) {
+    const randomSzam = Math.floor(Math.random() * 9 + 1);
+    valtozok.jelszoKarakterekTomb.push(randomSzam);
+    kezdoErtekSzamok++;
+  }
+  while (kezdoErtekBetuk < jelszo1) {
+    const randomIndex = Math.floor(Math.random() * betuk.length);
+    const randomBetuk = betuk[randomIndex];
+    valtozok.jelszoKarakterekTomb.push(randomBetuk);
+    kezdoErtekBetuk++;
+  }
+  while (kezdoErtekSpec < jelszo2) {
+    const randomIndex = Math.floor(Math.random() * specialisKarakterek.length);
+    const randomSpecBetuk = specialisKarakterek[randomIndex];
+    valtozok.jelszoKarakterekTomb.push(randomSpecBetuk);
+    kezdoErtekSpec++;
+  }
+  jelszoRandomizalo();
+  const formataltJelszo = valtozok.jelszoKarakterekTomb.join("");
+  kiirtJelszo.value = formataltJelszo;
+  console.log(formataltJelszo.length);
+};
+
+document
+  .querySelector("#random-jelszo-generalo")
+  .addEventListener("click", function () {
+    reset();
+    randomJelszoGeneralo();
   });

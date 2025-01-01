@@ -3,19 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <h1>Jelszó generátor</h1>
-    <label for="">Hány szám legyen a jelszóban?</label>
-    <input type="number" min="1" value="1" name="" id="karakter-szam" /><br />
-    <label for="">Hány betű karakter legyen a jelszóban?</label>
-    <input type="number" min="1" value="1" name="" id="betuk-szama" /><br />
-    <label for="">Hány speciális karakter legyen a jelszóban?</label>
-    <input type="number" min="1" value="1" name="" id="speckarakterek-szama" />
+    <h3>Megadhatod milyen arányban legyenek random karakterek:</h3>
+    <label for="">Mennyi szám legyen a jelszóban?</label>
+    <input type="number" min="0" value="1" name="" id="karakter-szam" /><br />
+    <label for="">Mennyi betű karakter legyen a jelszóban?</label>
+    <input type="number" min="0" value="1" name="" id="betuk-szama" /><br />
+    <label for="">Mennyi speciális karakter legyen a jelszóban?</label>
+    <input type="number" min="0" value="1" name="" id="speckarakterek-szama" />
     <button id="jelszo-generalo">Jelszó generálása</button><br />
-    <label for="">Az elkészült jelszó:</label>
-    <input readonly id="jelszo" type="text" />
+
+    <h3>Fixált arányban is készíthetsz random jelszavakat:</h3>
+    <label for=""
+      >Mennyi karakterből álljon a random jelszó? (minimum 6-nak kell
+      lennie)</label
+    >
+    <input
+      type="number"
+      min="6"
+      value="6"
+      name=""
+      id="random-jelszo-karakterek"
+    />
+    <button id="random-jelszo-generalo">Random jelszó generálása</button><br />
+    <div class="kesz-jelszo">
+      <label for="">Az elkészült jelszó:</label>
+      <input readonly id="jelszo" type="text" />
+    </div>
     <script type="module" src="main.js"></script>
   </body>
 </html>
